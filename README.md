@@ -1,2 +1,2 @@
 # CloudChat-SDK-JS
-The JavaScript SDK for CloudChat Platform
+The JavaScript SDK for NcloudChat Platform
