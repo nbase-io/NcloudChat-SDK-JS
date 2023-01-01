@@ -1,7 +1,8 @@
 {
   "name": "cloudchat",
-  "version" : "1.0.43",
-  "description": "The JavaScript SDK for NAVER Ncloud Chat Platform",
+  "version" : "1.0.44",
+  "main" : "ncloudchat.min.js",
+  "description": "The JavaScript SDK for NAVER Cloud ChatPlatform",
   "keywords": [
     "cloudchat",
     "ncloudchat",
@@ -27,5 +28,4 @@
     "url": "https://github.com/nbase-io/NcloudChat-SDK-JS/issues"
   },
   "homepage": "https://guide.ncloud-docs.com/docs/bizapp-ncloudchat-javascriptsdk"
-}
 }
