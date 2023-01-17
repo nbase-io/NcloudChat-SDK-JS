@@ -35,6 +35,6 @@ npm install ncloudchat
 yarn add ncloudchat
 ```
 
-Javscript Guide Link 
+Ncloud Chat JavaScript SDK Link
 
 <a target="_blank" href="https://guide.ncloud-docs.com/docs/bizapp-ncloudchat-javascriptsdk">https://guide.ncloud-docs.com/docs/bizapp-ncloudchat-javascriptsdk</a>
