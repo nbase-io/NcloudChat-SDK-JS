@@ -569,9 +569,9 @@ declare module 'ncloudchat/Type' {
    * @interface
    */
   export interface MarkInput {
-      userId: string;
-      messageId: string;
-      sortId: string;
+      user_id: string;
+      message_id: string;
+      sort_id: string;
   }
   /**
    * Interface for channel input.
