@@ -598,6 +598,7 @@ declare module 'cloudchat/Type' {
       push: boolean;
       mutes: boolean;
       linkUrl: string;
+      integrationId: string;
       customField: string;
       imageUrl: string;
       members: string[];
