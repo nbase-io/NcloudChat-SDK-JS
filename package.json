@@ -1,6 +1,6 @@
 {
-  "name": "cloudchat",
-  "version": "1.0.79",
+  "name": "ncloudchat",
+  "version": "1.0.44",
   "main": "NcloudChat.min.js",
   "description": "The JavaScript SDK for NAVER Cloud Chat Platform",
   "keywords": [

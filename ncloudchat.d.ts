@@ -490,6 +490,18 @@ declare module 'cloudchat/CloudChat' {
        */
       updatePin(pinId: string, channelId: string, pin: PinInput): Promise<any>;
       getServerUrl(): Promise<any>;
+      /**
+      * send integration.
+      *
+      * @async
+      * @function sendIntegration
+      * @param {string} channelId - An id of the channel.
+      * @param {string} integrationId - ID of the integration.
+      * @param {string} to - To of the integration.
+      * @param {string} message - Message of the integration.
+      * @returns {Promise<any>} The data of the updated pin.
+      */
+      sendIntegration(channelId: string, integrationId: string, to: string, message: any): Promise<any>;
   }
 
 }
@@ -598,9 +610,9 @@ declare module 'cloudchat/Type' {
       push: boolean;
       mutes: boolean;
       linkUrl: string;
-      integrationId: string;
       customField: string;
       imageUrl: string;
+      integrationId: string;
       members: string[];
   }
   /**
@@ -687,6 +699,16 @@ declare module 'cloudchat/graphql/friend' {
   export const rejectFriendQuery: string;
   export const removeFriendQuery: string;
   export const getFriendshipsQuery: string;
+
+}
+declare module 'cloudchat/graphql/integration' {
+  /**
+   * Copyright (c) NBASE CORP. and its affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   */
+  export const sendIntergrationQuery = "mutation sendIntegration (\n        $projectId: String!,\n        $channelId: String!, \n        $integrationId: String!,\n        $to: String,\n        $message: String!\n    ) {\n        sendIntegration (\n             input: { projectId: $projectId, \n            channelId: $channelId, \n            integrationId: $integrationId,\n            to: $to,\n            message:$message }\n        ) {\n            status\n            message\n        }\n    }\n";
 
 }
 declare module 'cloudchat/graphql/invite' {
@@ -907,6 +929,25 @@ declare module 'cloudchat/mutations/index' {
   export * from 'cloudchat/mutations/invite';
   export * from 'cloudchat/mutations/subscription';
   export * from 'cloudchat/mutations/pin';
+  export * from 'cloudchat/mutations/integration';
+
+}
+declare module 'cloudchat/mutations/integration' {
+  /**
+   * Copyright (c) NBASE CORP. and its affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   */
+  /**
+   * Request a friendship to a user.
+   *
+   * @async
+   * @function requestFriend
+   * @param {string} friendId - An id of the friend to request.
+   * @returns {Promise<any>}
+   */
+  export const sendIntegration: (channelId: string, integrationId: string, to: string, message: string) => Promise<any>;
 
 }
 declare module 'cloudchat/mutations/invite' {
