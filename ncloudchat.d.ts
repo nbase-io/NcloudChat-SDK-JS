@@ -29,9 +29,13 @@ declare module 'cloudchat/CloudChat' {
        * @function initialize
        * @param {string} projectId - The id of a project.
        */
-      initialize(projectId: string): void;
+      initialize(projectId: string, region?: string): void;
+      getDebug(): any;
+      setDebug(debug: boolean): void;
       getLang(): any;
       setLang(lang: string): void;
+      getRegion(): any;
+      setRegion(region: string): void;
       getUser(): any;
       getProjectId(): any;
       setServerUrl(url: string): void;
@@ -146,6 +150,16 @@ declare module 'cloudchat/CloudChat' {
        * @returns {Promise<any>}
        */
       sendImage(channelId: string, file: any): Promise<any>;
+      /**
+       * Send an file to a channel.
+       *
+       * @async
+       * @function sendFile
+       * @param {string} channelId - The id of a channel.
+       * @param {any} file - An image file.
+       * @returns {Promise<any>}
+       */
+      sendFile(channelId: string, file: any): Promise<any>;
       /**
        * Update a message.
        *
@@ -730,7 +744,7 @@ declare module 'cloudchat/graphql/member' {
    */
   export const loginQuery = "mutation login(\n        $projectId: String!\n        $userId: String!\n        $name: String\n        $profile: String\n        $token: String\n        $customField: String\n        ) {\n        login(\n            input: {\n                projectId: $projectId\n                userId: $userId\n                name: $name\n                token: $token\n                profile: $profile\n                customField: $customField\n            }\n        ) {\n            token\n        }\n    }";
   export const createMemberBlockQuery: string;
-  export const updateMemberQuery = "mutation updateMember(\n    $id: String!\n    $projectId: String!\n    $name: String\n    $profile: String\n    $remoteip: String\n    $memo: String\n    $adid: String\n    $device: String\n    $deviceType: [String]\n    $network: String\n    $version: String\n    $model: String\n    $notications: NoticationInput\n  )\n {\n    updateMember(input: {id: $id, projectId: $projectId, profile: $profile, memo: $memo, name: $name, remoteip: $remoteip, adid: $adid, device: $device, deviceType: $deviceType, network: $network, version: $version, model: $model, notications: $notications}) {\n        member {\n             id\n            project_id\n            name\n            profile\n            country\n            memo\n            remoteip\n            adid\n            device\n            network\n            push\n            version\n            model\n            logined_at\n            created_at\n            updated_at\n            notications {\n                token\n                device\n                os\n            }\n        }\n    }\n}\n";
+  export const updateMemberQuery = "mutation updateMember(\n    $id: String!\n    $projectId: String!\n    $name: String\n    $profile: String\n    $remoteip: String\n    $memo: String\n    $adid: String\n    $device: String\n    $deviceType: [String]\n    $network: String\n    $version: String\n    $model: String\n    $notifications: NotificationInput\n  )\n {\n    updateMember(input: {id: $id, projectId: $projectId, profile: $profile, memo: $memo, name: $name, remoteip: $remoteip, adid: $adid, device: $device, deviceType: $deviceType, network: $network, version: $version, model: $model, notifications: $notifications}) {\n        member {\n             id\n            project_id\n            name\n            profile\n            country\n            memo\n            remoteip\n            adid\n            device\n            network\n            push\n            version\n            model\n            logined_at\n            created_at\n            updated_at\n            notifications {\n                token\n                device\n                os\n            }\n        }\n    }\n}\n";
   export const deleteMemberBlockQuery: string;
   export const getMembersQuery = "query membersForQuery (\n        $projectId: String!, \n        $option: String!, \n        $filter: String!, \n        $sort: String \n    ) {\n        membersForQuery (\n            projectId: $projectId, \n            option:$option, \n            filter:$filter, \n            sort:$sort\n        ) {\n            totalCount\n            edges {\n                node {\n                    id\n                    name\n                }\n            }\n        }\n    }\n";
   export const getMemberBlocksQuery = "query memberblocks (\n        $projectId: String!, \n        $filter: String!, \n        $sort: String, \n        $option:String\n    ) {\n        memberblocks(\n            projectId: $projectId, \n            filter:$filter, \n            sort:$sort, \n            option:$option\n        ) {\n            totalCount\n            edges {\n                node {\n                    id\n                    project_id\n                    member_id\n                    type\n                    status\n                    block_type\n                    messageMulti {\n                        lang\n                        value\n                        default\n                    }\n                    started_at\n                    ended_at\n                    created_at\n                    updated_at\n                    deleted_at\n                }\n            }\n        }\n    }\n";
@@ -805,10 +819,11 @@ declare module 'cloudchat/logger' {
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    */
-  const debug: (value: any) => void;
-  const error: (value: any) => void;
-  const info: (value: any) => void;
-  export { debug, error, info };
+  const debug: (value: any, metadata?: any) => void;
+  const info: (value: any, metadata?: any) => void;
+  const warn: (value: any, metadata?: any) => void;
+  const error: (value: any, metadata?: any) => void;
+  export { debug, error, info, warn };
 
 }
 declare module 'cloudchat/mutations/channel' {
