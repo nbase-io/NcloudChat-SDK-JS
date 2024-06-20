@@ -291,11 +291,11 @@ declare module 'cloudchat/CloudChat' {
        * Get a count of unread messages of a channel.
        *
        * @async
-       * @function countUnread
+       * @function unreadCount
        * @param {string} channelId - The id of a channel.
        * @returns {Promise<any>}
        */
-      countUnread(channelId: string): Promise<any>;
+      unreadCount(channelId: string): Promise<any>;
       /**
        * Get subscription data of the user.
        *
@@ -516,6 +516,24 @@ declare module 'cloudchat/CloudChat' {
       * @returns {Promise<any>} The data of the updated pin.
       */
       sendIntegration(channelId: string, integrationId: string, to: string, message: any): Promise<any>;
+      /**
+      * set push state
+      *
+      * @async
+      * @function setPushState
+      * @param {string} channelId - An id of the channel.
+      * @param {string} integrationId - ID of the integration.
+      * @param {string} to - To of the integration.
+      * @param {string} message - Message of the integration.
+      * @returns {Promise<any>} The data of the updated pin.
+      */
+      setPushState(push: boolean, ad: boolean, night: boolean): Promise<any>;
+      /**
+      * 비동기 방식으로 푸시 상태를 가져오는 메서드
+      * @returns {Promise<any>} 푸시 상태 정보
+      * @throws {Error} 오류가 발생한 경우 예외를 던짐
+      */
+      getPushState(): Promise<any>;
   }
 
 }
@@ -682,7 +700,9 @@ declare module 'cloudchat/Util' {
    * @returns {string} decoded string.
    */
   const ObjectId: (id: string) => string;
-  export { ObjectId };
+  const getOS: () => string;
+  const getTimeZone: () => string;
+  export { ObjectId, getOS, getTimeZone };
 
 }
 declare module 'cloudchat/graphql/channel' {
@@ -742,12 +762,14 @@ declare module 'cloudchat/graphql/member' {
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    */
+  export const getMeQuery = "query memberForQuery (\n        $projectId: String!\n        ) {\n        memberForQuery (\n            projectId: $projectId\n        ) {            \n             id\n            project_id\n            name\n            profile\n            country\n            memo\n            remoteip\n            adid\n            device\n            network\n            push\n            version\n            model\n            logined_at\n            created_at\n            updated_at\n            notifications {\n                token\n                device\n                os\n                push\n                ad\n                night\n            }\n        }\n    }\n";
   export const loginQuery = "mutation login(\n        $projectId: String!\n        $userId: String!\n        $name: String\n        $profile: String\n        $token: String\n        $customField: String\n        ) {\n        login(\n            input: {\n                projectId: $projectId\n                userId: $userId\n                name: $name\n                token: $token\n                profile: $profile\n                customField: $customField\n            }\n        ) {\n            token\n        }\n    }";
   export const createMemberBlockQuery: string;
   export const updateMemberQuery = "mutation updateMember(\n    $id: String!\n    $projectId: String!\n    $name: String\n    $profile: String\n    $remoteip: String\n    $memo: String\n    $adid: String\n    $device: String\n    $deviceType: [String]\n    $network: String\n    $version: String\n    $model: String\n    $notifications: NotificationInput\n  )\n {\n    updateMember(input: {id: $id, projectId: $projectId, profile: $profile, memo: $memo, name: $name, remoteip: $remoteip, adid: $adid, device: $device, deviceType: $deviceType, network: $network, version: $version, model: $model, notifications: $notifications}) {\n        member {\n             id\n            project_id\n            name\n            profile\n            country\n            memo\n            remoteip\n            adid\n            device\n            network\n            push\n            version\n            model\n            logined_at\n            created_at\n            updated_at\n            notifications {\n                token\n                device\n                os\n            }\n        }\n    }\n}\n";
   export const deleteMemberBlockQuery: string;
   export const getMembersQuery = "query membersForQuery (\n        $projectId: String!, \n        $option: String!, \n        $filter: String!, \n        $sort: String \n    ) {\n        membersForQuery (\n            projectId: $projectId, \n            option:$option, \n            filter:$filter, \n            sort:$sort\n        ) {\n            totalCount\n            edges {\n                node {\n                    id\n                    name\n                }\n            }\n        }\n    }\n";
   export const getMemberBlocksQuery = "query memberblocks (\n        $projectId: String!, \n        $filter: String!, \n        $sort: String, \n        $option:String\n    ) {\n        memberblocks(\n            projectId: $projectId, \n            filter:$filter, \n            sort:$sort, \n            option:$option\n        ) {\n            totalCount\n            edges {\n                node {\n                    id\n                    project_id\n                    member_id\n                    type\n                    status\n                    block_type\n                    messageMulti {\n                        lang\n                        value\n                        default\n                    }\n                    started_at\n                    ended_at\n                    created_at\n                    updated_at\n                    deleted_at\n                }\n            }\n        }\n    }\n";
+  export const addNotificationTokenQuery = "mutation addNotificationToken (\n    $projectId: String!,\n    $token: String,\n    $device: String,\n    $os: String,\n    $ad: Boolean,\n    $push: Boolean,\n    $night: Boolean,\n    $timezone: String,\n    $channel: String,\n) {\n    addNotificationToken(\n        input: {\n            projectId: $projectId,\n            token: $token,\n            device: $device,\n            os: $os,\n            ad: $ad,\n            push: $push,\n            night: $night,\n            timezone: $timezone,\n            channel: $channel\n        }\n    ) {\n        member {\n            id\n            notifications {\n                token\n                device\n                os\n                push\n                ad\n                night\n                timezone\n            }\n        }\n    }\n}\n";
 
 }
 declare module 'cloudchat/graphql/message' {
@@ -1027,6 +1049,7 @@ declare module 'cloudchat/mutations/member' {
    */
   export const deleteMemberBlock: (channelId: string, memberId: string) => Promise<any>;
   export const updateMember: (user_id: string, update: any) => Promise<any>;
+  export const setPushState: (push: boolean, ad: boolean, night: boolean) => Promise<any>;
 
 }
 declare module 'cloudchat/mutations/message' {
@@ -1232,6 +1255,7 @@ declare module 'cloudchat/queries/member' {
    * @returns {Promise<any>}
    */
   export const getMembers: (filter: string, sort: string, option: string) => Promise<any>;
+  export const getPushState: () => Promise<any>;
 
 }
 declare module 'cloudchat/queries/memberblocks' {
