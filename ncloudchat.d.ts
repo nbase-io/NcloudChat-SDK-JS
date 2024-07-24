@@ -1,11 +1,11 @@
-declare module 'cloudchat/CloudChat' {
+declare module 'ncloudchat/CloudChat' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    */
-  import type { ChannelInput, MarkInput, PinInput } from "cloudchat/Type";
+  import type { ChannelInput, MarkInput, PinInput } from "ncloudchat/Type";
   /**
    * Class NCloudChat holds all the NCloudChat functionalities.
    *
@@ -297,6 +297,15 @@ declare module 'cloudchat/CloudChat' {
        */
       unreadCount(channelId: string): Promise<any>;
       /**
+       * Get a count of unread messages of a channel.
+       *
+       * @async
+       * @function unreadCount
+       * @param {string} channelId - The id of a channel.
+       * @returns {Promise<any>}
+       */
+      countUnread(channelId: string): Promise<any>;
+      /**
        * Get subscription data of the user.
        *
        * @async
@@ -537,7 +546,7 @@ declare module 'cloudchat/CloudChat' {
   }
 
 }
-declare module 'cloudchat/CoreManager' {
+declare module 'ncloudchat/CoreManager' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -551,7 +560,7 @@ declare module 'cloudchat/CoreManager' {
   export default CoreManager;
 
 }
-declare module 'cloudchat/Dispatcher' {
+declare module 'ncloudchat/Dispatcher' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -591,7 +600,7 @@ declare module 'cloudchat/Dispatcher' {
   export {};
 
 }
-declare module 'cloudchat/Network' {
+declare module 'ncloudchat/Network' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -601,7 +610,7 @@ declare module 'cloudchat/Network' {
   export const fetchData: (returnKey: string | undefined, query: string, variables: object) => Promise<any>;
 
 }
-declare module 'cloudchat/Type' {
+declare module 'ncloudchat/Type' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -685,7 +694,7 @@ declare module 'cloudchat/Type' {
   }
 
 }
-declare module 'cloudchat/Util' {
+declare module 'ncloudchat/Util' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -705,7 +714,7 @@ declare module 'cloudchat/Util' {
   export { ObjectId, getOS, getTimeZone };
 
 }
-declare module 'cloudchat/graphql/channel' {
+declare module 'ncloudchat/graphql/channel' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -721,7 +730,7 @@ declare module 'cloudchat/graphql/channel' {
   export const removeChannelMembersQuery: string;
 
 }
-declare module 'cloudchat/graphql/friend' {
+declare module 'ncloudchat/graphql/friend' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -735,7 +744,7 @@ declare module 'cloudchat/graphql/friend' {
   export const getFriendshipsQuery: string;
 
 }
-declare module 'cloudchat/graphql/integration' {
+declare module 'ncloudchat/graphql/integration' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -745,7 +754,7 @@ declare module 'cloudchat/graphql/integration' {
   export const sendIntergrationQuery = "mutation sendIntegration (\n        $projectId: String!,\n        $channelId: String!, \n        $integrationId: String!,\n        $to: String,\n        $message: String!\n    ) {\n        sendIntegration (\n             input: { projectId: $projectId, \n            channelId: $channelId, \n            integrationId: $integrationId,\n            to: $to,\n            message:$message }\n        ) {\n            status\n            message\n        }\n    }\n";
 
 }
-declare module 'cloudchat/graphql/invite' {
+declare module 'ncloudchat/graphql/invite' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -755,7 +764,7 @@ declare module 'cloudchat/graphql/invite' {
   export const createInviteQuery = "mutation (\n        $projectId: String!, \n        $channelId: String!,\n        $friendIds: String!\n    ) {\n        createInvite(\n            input: {\n                projectId: $projectId, \n                channelId: $channelId,\n                friendIds: $friendIds\n            }\n        ) {\n            invite {\n                id\n            }\n        }\n    }\n";
 
 }
-declare module 'cloudchat/graphql/member' {
+declare module 'ncloudchat/graphql/member' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -772,7 +781,7 @@ declare module 'cloudchat/graphql/member' {
   export const addNotificationTokenQuery = "mutation addNotificationToken (\n    $projectId: String!,\n    $token: String,\n    $device: String,\n    $os: String,\n    $ad: Boolean,\n    $push: Boolean,\n    $night: Boolean,\n    $timezone: String,\n    $channel: String,\n) {\n    addNotificationToken(\n        input: {\n            projectId: $projectId,\n            token: $token,\n            device: $device,\n            os: $os,\n            ad: $ad,\n            push: $push,\n            night: $night,\n            timezone: $timezone,\n            channel: $channel\n        }\n    ) {\n        member {\n            id\n            notifications {\n                token\n                device\n                os\n                push\n                ad\n                night\n                timezone\n            }\n        }\n    }\n}\n";
 
 }
-declare module 'cloudchat/graphql/message' {
+declare module 'ncloudchat/graphql/message' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -787,7 +796,7 @@ declare module 'cloudchat/graphql/message' {
   export const deleteMessageQuery: string;
 
 }
-declare module 'cloudchat/graphql/pin' {
+declare module 'ncloudchat/graphql/pin' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -800,7 +809,7 @@ declare module 'cloudchat/graphql/pin' {
   export const updatePinQuery: string;
 
 }
-declare module 'cloudchat/graphql/project' {
+declare module 'ncloudchat/graphql/project' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -809,7 +818,7 @@ declare module 'cloudchat/graphql/project' {
    */
 
 }
-declare module 'cloudchat/graphql/subscription' {
+declare module 'ncloudchat/graphql/subscription' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -823,18 +832,18 @@ declare module 'cloudchat/graphql/subscription' {
   export const getSubscriptionsQuery: string;
 
 }
-declare module 'cloudchat/index' {
+declare module 'ncloudchat/index' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    */
-  import Chat from 'cloudchat/CloudChat';
+  import Chat from 'ncloudchat/CloudChat';
   export { Chat };
 
 }
-declare module 'cloudchat/logger' {
+declare module 'ncloudchat/logger' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -848,14 +857,14 @@ declare module 'cloudchat/logger' {
   export { debug, error, info, warn };
 
 }
-declare module 'cloudchat/mutations/channel' {
+declare module 'ncloudchat/mutations/channel' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    */
-  import type { ChannelInput } from "cloudchat/Type";
+  import type { ChannelInput } from "ncloudchat/Type";
   /**
    * Create a new channel.
    *
@@ -907,7 +916,7 @@ declare module 'cloudchat/mutations/channel' {
   export const removeChannelMembers: (channelId: string, memberIds: any, options?: any) => Promise<any>;
 
 }
-declare module 'cloudchat/mutations/friend' {
+declare module 'ncloudchat/mutations/friend' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -952,24 +961,24 @@ declare module 'cloudchat/mutations/friend' {
   export const removeFriend: (friendId: string) => Promise<any>;
 
 }
-declare module 'cloudchat/mutations/index' {
+declare module 'ncloudchat/mutations/index' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    */
-  export * from 'cloudchat/mutations/member';
-  export * from 'cloudchat/mutations/channel';
-  export * from 'cloudchat/mutations/message';
-  export * from 'cloudchat/mutations/friend';
-  export * from 'cloudchat/mutations/invite';
-  export * from 'cloudchat/mutations/subscription';
-  export * from 'cloudchat/mutations/pin';
-  export * from 'cloudchat/mutations/integration';
+  export * from 'ncloudchat/mutations/member';
+  export * from 'ncloudchat/mutations/channel';
+  export * from 'ncloudchat/mutations/message';
+  export * from 'ncloudchat/mutations/friend';
+  export * from 'ncloudchat/mutations/invite';
+  export * from 'ncloudchat/mutations/subscription';
+  export * from 'ncloudchat/mutations/pin';
+  export * from 'ncloudchat/mutations/integration';
 
 }
-declare module 'cloudchat/mutations/integration' {
+declare module 'ncloudchat/mutations/integration' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -987,7 +996,7 @@ declare module 'cloudchat/mutations/integration' {
   export const sendIntegration: (channelId: string, integrationId: string, to: string, message: string) => Promise<any>;
 
 }
-declare module 'cloudchat/mutations/invite' {
+declare module 'ncloudchat/mutations/invite' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -1006,7 +1015,7 @@ declare module 'cloudchat/mutations/invite' {
   export const createInvite: (channelId: string, friendIds: any) => Promise<any>;
 
 }
-declare module 'cloudchat/mutations/member' {
+declare module 'ncloudchat/mutations/member' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -1049,10 +1058,10 @@ declare module 'cloudchat/mutations/member' {
    */
   export const deleteMemberBlock: (channelId: string, memberId: string) => Promise<any>;
   export const updateMember: (user_id: string, update: any) => Promise<any>;
-  export const setPushState: (push: boolean, ad: boolean, night: boolean) => Promise<any>;
+  export const setPushState: (device: string, push: boolean, ad: boolean, night: boolean) => Promise<any>;
 
 }
-declare module 'cloudchat/mutations/message' {
+declare module 'ncloudchat/mutations/message' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -1100,14 +1109,14 @@ declare module 'cloudchat/mutations/message' {
   export const deleteMessage: (channelId: string, messageId: string) => Promise<any>;
 
 }
-declare module 'cloudchat/mutations/pin' {
+declare module 'ncloudchat/mutations/pin' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    */
-  import type { PinInput } from "cloudchat/Type";
+  import type { PinInput } from "ncloudchat/Type";
   /**
   * Create a new pin.
   *
@@ -1131,14 +1140,14 @@ declare module 'cloudchat/mutations/pin' {
   export const updatePin: (id: string, channelId: string, pin: PinInput) => Promise<any>;
 
 }
-declare module 'cloudchat/mutations/subscription' {
+declare module 'ncloudchat/mutations/subscription' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    */
-  import type { MarkInput } from "cloudchat/Type";
+  import type { MarkInput } from "ncloudchat/Type";
   /**
    * Create a subscription.
    *
@@ -1171,7 +1180,7 @@ declare module 'cloudchat/mutations/subscription' {
   export const updateSubscription: (channelId: string, mark: MarkInput, option?: string) => Promise<any>;
 
 }
-declare module 'cloudchat/queries/channel' {
+declare module 'ncloudchat/queries/channel' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -1200,7 +1209,7 @@ declare module 'cloudchat/queries/channel' {
   export const getChannels: (filter: string, sort: string, option: string) => Promise<any>;
 
 }
-declare module 'cloudchat/queries/friend' {
+declare module 'ncloudchat/queries/friend' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -1220,24 +1229,24 @@ declare module 'cloudchat/queries/friend' {
   export const getFriendships: (filter: string, sort: string, option: string) => Promise<any>;
 
 }
-declare module 'cloudchat/queries/index' {
+declare module 'ncloudchat/queries/index' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
    * This source code is licensed under the MIT license found in the
    * LICENSE file in the root directory of this source tree.
    */
-  export * from 'cloudchat/queries/project';
-  export * from 'cloudchat/queries/channel';
-  export * from 'cloudchat/queries/message';
-  export * from 'cloudchat/queries/subscription';
-  export * from 'cloudchat/queries/friend';
-  export * from 'cloudchat/queries/member';
-  export * from 'cloudchat/queries/memberblocks';
-  export * from 'cloudchat/queries/pin';
+  export * from 'ncloudchat/queries/project';
+  export * from 'ncloudchat/queries/channel';
+  export * from 'ncloudchat/queries/message';
+  export * from 'ncloudchat/queries/subscription';
+  export * from 'ncloudchat/queries/friend';
+  export * from 'ncloudchat/queries/member';
+  export * from 'ncloudchat/queries/memberblocks';
+  export * from 'ncloudchat/queries/pin';
 
 }
-declare module 'cloudchat/queries/member' {
+declare module 'ncloudchat/queries/member' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -1258,7 +1267,7 @@ declare module 'cloudchat/queries/member' {
   export const getPushState: () => Promise<any>;
 
 }
-declare module 'cloudchat/queries/memberblocks' {
+declare module 'ncloudchat/queries/memberblocks' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -1278,7 +1287,7 @@ declare module 'cloudchat/queries/memberblocks' {
   export const getMemberBlocks: (filter: string, sort: string, option: string) => Promise<any>;
 
 }
-declare module 'cloudchat/queries/message' {
+declare module 'ncloudchat/queries/message' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -1317,7 +1326,7 @@ declare module 'cloudchat/queries/message' {
   export const unreadCount: (channelId: string) => Promise<any>;
 
 }
-declare module 'cloudchat/queries/pin' {
+declare module 'ncloudchat/queries/pin' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -1348,7 +1357,7 @@ declare module 'cloudchat/queries/pin' {
   export const getPins: (channelId: string, filter: string, sort: string, option: string) => Promise<any>;
 
 }
-declare module 'cloudchat/queries/project' {
+declare module 'ncloudchat/queries/project' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -1365,7 +1374,7 @@ declare module 'cloudchat/queries/project' {
    */
 
 }
-declare module 'cloudchat/queries/subscription' {
+declare module 'ncloudchat/queries/subscription' {
   /**
    * Copyright (c) NBASE CORP. and its affiliates.
    *
@@ -1395,7 +1404,7 @@ declare module 'cloudchat/queries/subscription' {
   export const getSubscriptions: (filter: any, sort: any, option: any) => Promise<any>;
 
 }
-declare module 'cloudchat' {
-  import main = require('cloudchat/index');
+declare module 'ncloudchat' {
+  import main = require('ncloudchat/index');
   export = main;
 }
