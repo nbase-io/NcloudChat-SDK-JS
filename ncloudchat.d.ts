@@ -543,6 +543,7 @@ declare module 'ncloudchat/CloudChat' {
       * @throws {Error} 오류가 발생한 경우 예외를 던짐
       */
       getPushState(): Promise<any>;
+      getMessageUnreadCount(channelId: string, messageId: string): Promise<any>;
   }
 
 }
@@ -794,6 +795,7 @@ declare module 'ncloudchat/graphql/message' {
   export const unreadCountQuery = "query mark (\n        $projectId: String!, \n        $channelId: String!\n    ) { \n        mark (\n            projectId: $projectId, \n            channelId:$channelId\n        ) {  \n            user_id,\n            message_id,\n            sort_id,  \n            unread\n        } \n    }\n";
   export const messageQuery: string;
   export const deleteMessageQuery: string;
+  export const messageUnreadCountQuery = "query messageUnreadCount(\n    $projectId: String!\n    $channelId: String!,\n    $messageId: String!,\n  ) {\n    messageUnreadCount(\n      projectId: $projectId\n      channelId: $channelId\n      messageId: $messageId\n    ) {\n        totalCount\n        count\n    }\n  }";
 
 }
 declare module 'ncloudchat/graphql/pin' {
@@ -1324,6 +1326,16 @@ declare module 'ncloudchat/queries/message' {
    * @returns {Promise<any>}
    */
   export const unreadCount: (channelId: string) => Promise<any>;
+  /**
+   * Retrieves the count of unread users for a specific message in a channel.
+   *
+   * @async
+   * @function getMessageUnreadCount
+   * @param {string} channelId - The ID of the channel.
+   * @param {string} messageId - The ID of the message.
+   * @returns {Promise<any>} A Promise that resolves to the count of unread users.
+   */
+  export const getMessageUnreadCount: (channelId: string, messageId: string) => Promise<any>;
 
 }
 declare module 'ncloudchat/queries/pin' {
