@@ -1,6 +1,6 @@
 {
   "name": "ncloudchat",
-  "version": "1.0.49-beta2",
+  "version": "1.0.49-beta3",
   "main": "ncloudchat.min.js",
   "types" : "ncloudchat.d.ts",
   "description": "The JavaScript SDK for NAVER Cloud Chat Platform",
